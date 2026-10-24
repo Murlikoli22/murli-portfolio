@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Murli Koli Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Instrument+Serif:ital@1&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single scrolling page, sticky top bar, big uppercase display type with serif-italic emphasis, hairline-divided sections. */
+:root{
+  --bg:#F2F4F7; --surface:#FFFFFF; --fg:#0D1B2E; --muted:#56657A; --line:#D5DBE4; --accent:#2A44E8; --accent-fg:#FFFFFF; --chip:#E6EAF5;
+  --f-display:"Bricolage Grotesque","Arial Narrow",Arial,sans-serif;
+  --f-serif:"Instrument Serif",Georgia,serif;
+  --f-body:"Manrope",system-ui,Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1220;--surface:#121C2F;--fg:#E8EDF6;--muted:#93A2BA;--line:#223149;--accent:#7C93FF;--accent-fg:#0B1220;--chip:#1A2740;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0B1220;--surface:#121C2F;--fg:#E8EDF6;--muted:#93A2BA;--line:#223149;--accent:#7C93FF;--accent-fg:#0B1220;--chip:#1A2740;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.65;padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);text-transform:uppercase;line-height:.98;letter-spacing:-.01em;margin:0;text-wrap:balance}
+em{font-family:var(--f-serif);font-style:italic;text-transform:none;font-weight:400;letter-spacing:0}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:20px;padding-block:12px;flex-wrap:wrap}
+.logo{font-family:var(--f-display);font-weight:800;font-size:1.1rem;text-decoration:none;display:flex;align-items:center;gap:10px}
+.mono{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-fg);font-size:.8rem}
+.links{display:flex;gap:18px;margin-left:auto;flex-wrap:wrap;font-size:.85rem}
+.links a{text-decoration:none;color:var(--muted)}
+.links a:hover{color:var(--fg)}
+.theme{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:6px 12px;font:500 .75rem var(--f-mono);cursor:pointer}
+
+section{padding-block:72px;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;flex-direction:column;gap:12px;margin-bottom:36px}
+h2{font-size:clamp(2.2rem,6vw,3.8rem)}
+
+/* hero */
+.hero{padding-block:56px 64px;display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:center}
+.hero>*{min-width:0}
+h1{font-size:clamp(2.6rem,8vw,5.6rem)}
+.rot{display:block;color:var(--accent);min-height:1.1em}
+.sub{margin:22px 0 0;max-width:52ch;color:var(--muted);font-size:1.05rem}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.tag{font:500 .75rem var(--f-mono);background:var(--chip);padding:6px 12px;border-radius:999px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;align-items:center}
+.btn{display:inline-flex;gap:8px;align-items:center;padding:13px 22px;border-radius:999px;font-weight:600;text-decoration:none;border:1px solid var(--accent);background:var(--accent);color:var(--accent-fg)}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+.status{font:400 .75rem var(--f-mono);color:var(--muted);display:flex;align-items:center;gap:8px;margin-top:14px}
+.dot{width:8px;height:8px;border-radius:50%;background:#1FA463}
+
+/* portrait image styling */
+.portrait{aspect-ratio:4/5;width:100%;max-width:340px;justify-self:end;border:1px solid var(--line);border-radius:24px;background:var(--surface);position:relative;overflow:hidden}
+.portrait-img{width:100%;height:100%;object-fit:cover;display:block}
+.portrait small{position:absolute;left:16px;bottom:14px;font:400 .7rem var(--f-mono);color:#ffffff;background:rgba(11, 18, 32, 0.65);padding:4px 10px;border-radius:999px;backdrop-filter:blur(4px);z-index:2}
+
+/* marquee */
+.strip{overflow:hidden;border-bottom:1px solid var(--line);padding-block:14px;margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)))}
+.strip div{display:flex;gap:40px;width:max-content;animation:slide 32s linear infinite;font:500 .8rem var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+@keyframes slide{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.strip div{animation:none}html{scroll-behavior:auto}}
+
+/* about */
+.about{display:grid;grid-template-columns:1.3fr 1fr;gap:48px}
+.about>*{min-width:0}
+.about p{margin:0 0 16px;max-width:62ch}
+.stats{display:grid;gap:0;align-content:start}
+.stat{padding:18px 0;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:16px}
+.stat b{font:800 2.6rem/1 var(--f-display);color:var(--accent);min-width:3.2ch}
+.stat span{color:var(--muted);font-size:.9rem}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.skills>*{min-width:0}
+.sk{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px}
+.sk h3{font-size:1.15rem;margin-bottom:14px}
+.sk ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.sk li{font-size:.85rem;background:var(--chip);padding:5px 11px;border-radius:999px}
+
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.projects>*{min-width:0}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:12px}
+.proj h3{font-size:1.5rem}
+.proj p{margin:0;color:var(--muted);font-size:.95rem}
+.proj .tags{margin-top:auto;padding-top:8px}
+.proj .meta{font:400 .72rem var(--f-mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+
+/* journey */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:20px 0;border-top:1px solid var(--line)}
+.tl li>*{min-width:0}
+.tl time{font:500 .8rem var(--f-mono);color:var(--accent)}
+.tl h3{font-size:1.15rem;margin-bottom:6px}
+.tl p{margin:0;color:var(--muted);font-size:.95rem}
+.tl .kind{font:400 .7rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+
+/* resume */
+.resume-actions{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:16px;
+}
+.pill-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 28px;
+  border:1px solid var(--line);
+  border-radius:50px;
+  color:var(--fg);
+  background:var(--surface);
+  text-decoration:none;
+  font-family:var(--f-body);
+  font-size:0.95rem;
+  font-weight:500;
+  width:fit-content;
+  transition:all 0.2s ease;
+}
+.pill-btn:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.contact>*{min-width:0}
+.rows{display:grid;gap:0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.row small{font:400 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block}
+.row a,.row span.v{font-weight:600;overflow-wrap:anywhere}
+.copy{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:6px 14px;font:500 .75rem var(--f-mono);cursor:pointer}
+form{display:grid;gap:14px}
+label{font:400 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:grid;gap:6px}
+input,textarea{font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%}
+textarea{min-height:120px;resize:vertical}
+.note{font-size:.85rem;color:var(--muted);min-height:1.3em;margin:0}
+footer{padding-block:32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}
+footer a{text-decoration:none;color:var(--fg);font-weight:600}
+
+@media (max-width:760px){
+  .hero,.about,.contact{grid-template-columns:1fr;gap:32px}
+  .portrait{justify-self:start;max-width:240px}
+  .tl li{grid-template-columns:1fr;gap:6px}
+  section{padding-block:52px}
+}
+</style>
+</head>
+
+<body>
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="#home"><span class="mono">MK</span>Murli Koli</a>
+    <div class="links">
+      <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Work</a><a href="#journey">Journey</a><a href="#resume">Resume</a><a href="#contact">Contact</a>
+    </div>
+    <button class="theme" id="theme" type="button" aria-label="Switch colour theme">Light / Dark</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="home" class="hero">
+    <div>
+      <p class="eyebrow">B.Sc. Computer Science · Mumbai · Open to work</p>
+      <h1 style="margin-top:18px">I turn raw data <span class="rot" id="rot"><em>into insights</em></span></h1>
+      <p class="sub">I'm Murli Koli, a 2026 Computer Science graduate from Mumbai University. I'm building a career in data analytics and cloud/DevOps, and I learn by building small, working things.</p>
+      <div class="tags"><span class="tag">Data Analytics</span><span class="tag">Cloud &amp; DevOps</span><span class="tag">Networking</span></div>
+      <div class="cta">
+        <a class="btn" href="#contact">Let's Talk &rarr;</a>
+        <a class="btn ghost" href="#projects">See my work</a>
+        <a class="btn ghost" href="#resume">Resume</a>
+      </div>
+      <p class="status"><span class="dot"></span>Available for entry-level roles</p>
+    </div>
+    
+    <!-- Portrait Section with Image -->
+    <div class="portrait" role="img" aria-label="Portrait of Murli Koli">
+      <!-- Change 'your-photo.jpg' to your actual image file name or URL -->
+      <img src="C:\Murli Portfolio\IMG_20241026_133058.jpg" alt="Murli Koli" class="portrait-img">
+      <small>Mumbai, India</small>
+    </div>
+  </section>
+
+  <div class="strip" aria-hidden="true"><div>
+    <span>Python</span><span>SQL</span><span>Excel</span><span>Linux</span><span>Shell scripting</span><span>AWS</span><span>Networking</span><span>Git</span><span>Data analysis</span><span>Cybersecurity basics</span>
+    <span>Python</span><span>SQL</span><span>Excel</span><span>Linux</span><span>Shell scripting</span><span>AWS</span><span>Networking</span><span>Git</span><span>Data analysis</span><span>Cybersecurity basics</span>
+  </div></div>
+
+  <section id="about">
+    <div class="sec-head"><p class="eyebrow">About</p><h2>Curious, hands-on, <em>always building</em></h2></div>
+    <div class="about">
+      <div>
+        <p>I finished my B.Sc. in Computer Science at Mumbai University in 2026. Along the way I built a cybersecurity learning game and a full-stack vehicle management app for my semester projects.</p>
+        <p>Outside college I work through a structured DevOps and cloud course with hands-on labs, writing shell scripts for system monitoring, backups and network scanning. I'm now looking for an entry-level Data Analyst, Business Analyst or Cloud/DevOps role in India.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>05</b><span>projects built, from academic apps to Linux lab scripts</span></div>
+        <div class="stat"><b>02</b><span>career tracks: data analytics and cloud/DevOps</span></div>
+        <div class="stat"><b>2026</b><span>B.Sc. Computer Science, Mumbai University</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><p class="eyebrow">Skills</p><h2>What I <em>work with</em></h2></div>
+    <div class="skills">
+      <div class="sk"><h3>Programming</h3><ul><li>Python</li><li>SQL</li><li>JavaScript</li><li>HTML &amp; CSS</li></ul></div>
+      <div class="sk"><h3>Data</h3><ul><li>Data analysis</li><li>Excel</li><li>Data cleaning</li><li>Dashboards</li></ul></div>
+      <div class="sk"><h3>Cloud &amp; DevOps</h3><ul><li>AWS (S3 hosting)</li><li>Linux</li><li>Shell scripting</li><li>Git</li></ul></div>
+      <div class="sk"><h3>Security &amp; Networks</h3><ul><li>Network scanning</li><li>Cybersecurity basics</li><li>System monitoring</li></ul></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><p class="eyebrow">Selected work</p><h2>Things I've <em>built</em></h2></div>
+    <div class="projects">
+      <article class="proj"><span class="meta">B.Sc. CS · Semester VI</span><h3>My Vehicle Log</h3><p>A full-stack vehicle management platform for tracking vehicles and their records, built as an academic project under the guidance of Ms. Jeenal Jain.</p><div class="tags"><span class="tag">Full-stack</span><span class="tag">Database</span></div></article>
+      <article class="proj"><span class="meta">B.Sc. CS · Semester V</span><h3>Cyber Detective</h3><p>A cybersecurity learning platform in game form, where players learn to spot and fix common security problems through challenges.</p><div class="tags"><span class="tag">Cybersecurity</span><span class="tag">Education</span></div></article>
+      <article class="proj"><span class="meta">DevOps course · Module 2</span><h3>Linux System Monitor</h3><p>A shell script that reports the health of a Linux machine so problems show up before they cause trouble.</p><div class="tags"><span class="tag">Bash</span><span class="tag">Linux</span></div></article>
+      <article class="proj"><span class="meta">DevOps course · Module 3</span><h3>Network Scanner</h3><p>A script that scans a network and lists what it finds, practising the basics of how hosts and ports are discovered.</p><div class="tags"><span class="tag">Networking</span><span class="tag">Scripting</span></div></article>
+      <article class="proj"><span class="meta">DevOps course · Lab</span><h3>Automated Backup</h3><p>A script that backs up chosen folders automatically, so the same job doesn't have to be done by hand every time.</p><div class="tags"><span class="tag">Bash</span><span class="tag">Automation</span></div></article>
+    </div>
+  </section>
+
+  <section id="journey">
+    <div class="sec-head"><p class="eyebrow">Journey</p><h2>How I <em>got here</em></h2></div>
+    <ol class="tl">
+      <li><time>2026</time><div><span class="kind">Degree</span><h3>B.Sc. Computer Science</h3><p>Completed at Mumbai University, with project work in cybersecurity and full-stack development.</p></div></li>
+      <li><time>2026</time><div><span class="kind">Course</span><h3>DevOps &amp; Cloud Computing</h3><p>A multi-module curriculum with hands-on labs covering Linux, scripting, networking and cloud basics.</p></div></li>
+      <li><time>2026</time><div><span class="kind">Self-study</span><h3>Data Analytics Roadmap</h3><p>Building skills in SQL, Excel and data analysis for the Indian fresher job market.</p></div></li>
+    </ol>
+  </section>
+
+  <!-- Resume Section -->
+  <section id="resume">
+    <div class="sec-head"><p class="eyebrow">Resume</p><h2> <em>Resume</em></h2></div>
+    <div class="resume-actions">
+      <!-- Replace 'path/to/resume.pdf' with your actual PDF file path or link -->
+      <a href="C:\Murli Portfolio\Murli Babu Koli.pdf" target="_blank" class="pill-btn">View Resume</a>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-head"><p class="eyebrow">Contact</p><h2>Let's <em>talk</em></h2></div>
+    <div class="contact">
+      <div class="rows">
+        <div class="row"><div><small>Email</small><span class="v" id="email">kolimurli84@gmail.com</span></div><button class="copy" data-copy="email" type="button">Copy</button></div>
+        <div class="row"><div><small>LinkedIn</small><a href="https://www.linkedin.com/in/murli-babu-koli-481a5734b" target="_blank" rel="noopener">linkedin.com/in/murli-babu-koli-481a5734b</a></div></div>
+        <div class="row"><div><small>GitHub</small><a href="https://github.com/Murlikoli22" target="_blank" rel="noopener">github.com/Murlikoli22</a></div></div>
+        <div class="row"><div><small>Location</small><span class="v">Mumbai, Maharashtra, India</span></div></div>
+      </div>
+      <form id="form" novalidate>
+        <label for="n">Name<input id="n" name="name" autocomplete="name"></label>
+        <label for="e">Email<input id="e" name="email" type="email" autocomplete="email"></label>
+        <label for="m">Message<textarea id="m" name="message"></textarea></label>
+        <button class="btn" type="submit">Send message</button>
+        <p class="note" id="note" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span>Mumbai, India · &copy; 2026 Murli Koli</span>
+  <a href="#home">Back to top &uarr;</a>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var btn=document.getElementById('theme');
+  btn.addEventListener('click',function(){
+    var dark=root.getAttribute('data-theme')==='dark'||(!root.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme',dark?'light':'dark');
+  });
+  var words=['insights','dashboards','decisions','cloud-ready systems'];
+  var i=0,el=document.getElementById('rot');
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    setInterval(function(){i=(i+1)%words.length;el.innerHTML='<em>'+words[i]+'</em>';},2400);
+  }
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.getElementById(b.dataset.copy);
+      var txt=t.textContent;
+      function done(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy';},1500);}
+      try{navigator.clipboard.writeText(txt).then(done,function(){sel(t);});}catch(e){sel(t);}
+    });
+  });
+  function sel(n){var r=document.createRange();r.selectNodeContents(n);var s=getSelection();s.removeAllRanges();s.addRange(r);}
+  document.getElementById('form').addEventListener('submit',function(e){
+    e.preventDefault();
+    document.getElementById('note').textContent='This form is a demo and does not send messages yet. Please use the email address above.';
+  });
+})();
+</script>
+</body>
+</html>
